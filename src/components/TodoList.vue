@@ -60,6 +60,6 @@ export default {
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 2px;
-  box-shadow: 0px 1px 2px 0px rgba(9, 30, 66, 0.25);
+  box-shadow: 1px 1px 2px 0px rgba(9, 30, 66, 0.25);
 }
 </style>
