@@ -5,14 +5,10 @@
         <Panel title="To-Do" id="todo" :tasks="tasks.todo" />
       </div>
       <div class="col">
-        <div class="panel">
-          <Panel title="Progress" id="progress" :tasks="tasks.progress" />
-        </div>
+        <Panel title="Progress" id="progress" :tasks="tasks.progress" />
       </div>
       <div class="col">
-        <div class="panel">
-          <Panel title="Done" id="done" :tasks="tasks.done" />
-        </div>
+        <Panel title="Done" id="done" :tasks="tasks.done" />
       </div>
     </div>
   </div>
