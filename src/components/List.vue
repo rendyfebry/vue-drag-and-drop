@@ -6,7 +6,7 @@
     v-on:dragover="handleDragOver"
     v-on:drop="handleDrop"
   >
-    <Task v-for="task in tasks" :key="task.id" :id="task.id" :title="task.title" />
+    <Task v-for="task in tasks" :key="task.id" :listId="id" :id="task.id" :title="task.title" />
   </div>
 </template>
 
@@ -20,13 +20,21 @@ export default {
   },
   props: ['id', 'tasks'],
   methods: {
+    generateRandomString() {
+      // vaiable regex random string
+      const rndString = Math.random()
+        .toString(36)
+        .replace(/[^a-z]+/g, '')
+        .substr(0, 8)
+
+      return rndString
+    },
     handleDragOver(e) {
       e.preventDefault()
     },
     handleDrop(e) {
       e.preventDefault()
-      console.log('drop')
-      console.log(e.target)
+      console.log(this.id, this.tasks)
     },
   },
 }

@@ -28,25 +28,30 @@ export default {
         todo: [
           {
             title: 'Item 1',
-            id: 'item-1',
+            id: 'cuaygmld',
           },
           {
             title: 'Item 2',
-            id: 'item-2',
+            id: 'acdwkhkg',
           },
           {
             title: 'Item 3',
-            id: 'item-3',
+            id: 'tgazicxp',
           },
           {
             title: 'Item 4',
-            id: 'item-4',
+            id: 'mzfaarrc',
           },
         ],
         progress: [],
         done: [],
       },
     }
+  },
+  methods: {
+    handleDragStart(list, id) {
+      console.log(list, id)
+    },
   },
 }
 </script>
