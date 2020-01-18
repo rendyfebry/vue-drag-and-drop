@@ -4,32 +4,40 @@
       <div class="col">
         <div class="panel">
           <h2>To-Do</h2>
-          <div class="list">
-            <div class="task" id="item-1">
-              Item 1
-            </div>
-            <div class="task" id="item-2">
-              Item 2
-            </div>
-            <div class="task" id="item-3">
-              Item 3
-            </div>
-            <div class="task" id="item-4">
-              Item 4
-            </div>
+          <div class="list" id="list-todo">
+            <Task
+              v-for="task in tasks.todo"
+              v-bind:key="task.id"
+              v-bind:title="task.title"
+              v-bind:id="task.id"
+            />
           </div>
         </div>
       </div>
       <div class="col">
         <div class="panel">
           <h2>Progress</h2>
-          <div class="list"></div>
+          <div class="list" id="list-progress">
+            <Task
+              v-for="task in tasks.progress"
+              v-bind:key="task.id"
+              v-bind:title="task.title"
+              v-bind:id="task.id"
+            />
+          </div>
         </div>
       </div>
       <div class="col">
         <div class="panel">
           <h2>Done</h2>
-          <div class="list"></div>
+          <div class="list" id="list-done">
+            <Task
+              v-for="task in tasks.done"
+              v-bind:key="task.id"
+              v-bind:title="task.title"
+              v-bind:id="task.id"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -37,8 +45,39 @@
 </template>
 
 <script>
+import Task from './Task'
+
 export default {
   name: 'TodoList',
+  components: {
+    Task,
+  },
+  data: function() {
+    return {
+      tasks: {
+        todo: [
+          {
+            title: 'Item 1',
+            id: 'item-1',
+          },
+          {
+            title: 'Item 2',
+            id: 'item-2',
+          },
+          {
+            title: 'Item 3',
+            id: 'item-3',
+          },
+          {
+            title: 'Item 4',
+            id: 'item-4',
+          },
+        ],
+        progress: [],
+        done: [],
+      },
+    }
+  },
 }
 </script>
 
