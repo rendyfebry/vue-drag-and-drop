@@ -2,42 +2,16 @@
   <div class="container">
     <div class="row">
       <div class="col">
+        <Panel title="To-Do" id="todo" :tasks="tasks.todo" />
+      </div>
+      <div class="col">
         <div class="panel">
-          <h2>To-Do</h2>
-          <div class="list" id="list-todo">
-            <Task
-              v-for="task in tasks.todo"
-              v-bind:key="task.id"
-              v-bind:title="task.title"
-              v-bind:id="task.id"
-            />
-          </div>
+          <Panel title="Progress" id="progress" :tasks="tasks.progress" />
         </div>
       </div>
       <div class="col">
         <div class="panel">
-          <h2>Progress</h2>
-          <div class="list" id="list-progress">
-            <Task
-              v-for="task in tasks.progress"
-              v-bind:key="task.id"
-              v-bind:title="task.title"
-              v-bind:id="task.id"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="panel">
-          <h2>Done</h2>
-          <div class="list" id="list-done">
-            <Task
-              v-for="task in tasks.done"
-              v-bind:key="task.id"
-              v-bind:title="task.title"
-              v-bind:id="task.id"
-            />
-          </div>
+          <Panel title="Done" id="done" :tasks="tasks.done" />
         </div>
       </div>
     </div>
@@ -45,12 +19,12 @@
 </template>
 
 <script>
-import Task from './Task'
+import Panel from './Panel'
 
 export default {
   name: 'TodoList',
   components: {
-    Task,
+    Panel,
   },
   data: function() {
     return {
@@ -86,19 +60,13 @@ export default {
   background-color: #f4f5f7;
   padding: 1em;
   min-height: 500px;
+  display: flex;
+  flex-direction: column;
 }
 
 .panel h2 {
   font-size: 1.2em;
   margin-bottom: 1em;
   text-align: center;
-}
-
-.task {
-  background-color: #ffffff;
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 2px;
-  box-shadow: 1px 1px 2px 0px rgba(9, 30, 66, 0.25);
 }
 </style>
