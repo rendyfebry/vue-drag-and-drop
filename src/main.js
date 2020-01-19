@@ -4,6 +4,7 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 Vue.config.productionTip = false
+Vue.prototype.$bus = new Vue() // Global Event Bus
 
 new Vue({
   render: h => h(App),
