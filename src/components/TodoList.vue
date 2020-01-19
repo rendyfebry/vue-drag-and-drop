@@ -46,12 +46,36 @@ export default {
         progress: [],
         done: [],
       },
+      movedTaskID: '',
+      sourceList: '',
     }
   },
   methods: {
-    handleDragStart(list, id) {
-      console.log(list, id)
+    handleDragStart(data) {
+      // Save taskID & sourceList
+      this.movedTaskID = data.taskID
+      this.sourceList = data.sourceList
     },
+    handleDrop(data) {
+      // Prevent move on same list
+      if (data.targetList == this.sourceList) {
+        return
+      }
+
+      // Add moved element to targetList
+      const movedElements = this.tasks[this.sourceList].filter(e => e.id == this.movedTaskID)
+      if (movedElements.length) {
+        this.tasks[data.targetList].push(movedElements[0])
+      }
+
+      // Remove removed element from sourceList
+      const remainingElements = this.tasks[this.sourceList].filter(e => e.id != this.movedTaskID)
+      this.tasks[this.sourceList] = remainingElements
+    },
+  },
+  created() {
+    this.$bus.$on('drag-start', this.handleDragStart)
+    this.$bus.$on('dropped', this.handleDrop)
   },
 }
 </script>

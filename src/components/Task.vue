@@ -1,5 +1,5 @@
 <template>
-  <div class="task" :id="id" draggable="true" v-on:dragstart="handleDragStart">
+  <div class="task" :id="`task-${id}`" draggable="true" v-on:dragstart="handleDragStart">
     {{ title }}
   </div>
 </template>
@@ -7,10 +7,13 @@
 <script>
 export default {
   name: 'Task',
-  props: ['title', 'id'],
+  props: ['listId', 'id', 'title'],
   methods: {
     handleDragStart() {
-      console.log('handleDragStart')
+      this.$bus.$emit('drag-start', {
+        sourceList: this.listId,
+        taskID: this.id,
+      })
     },
   },
 }

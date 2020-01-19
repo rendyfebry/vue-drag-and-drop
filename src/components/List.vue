@@ -1,7 +1,7 @@
 <template>
   <div
     class="list"
-    :id="`${id}-list`"
+    :id="`list-${id}`"
     droppable="true"
     v-on:dragover="handleDragOver"
     v-on:drop="handleDrop"
@@ -20,21 +20,14 @@ export default {
   },
   props: ['id', 'tasks'],
   methods: {
-    generateRandomString() {
-      // vaiable regex random string
-      const rndString = Math.random()
-        .toString(36)
-        .replace(/[^a-z]+/g, '')
-        .substr(0, 8)
-
-      return rndString
-    },
     handleDragOver(e) {
       e.preventDefault()
     },
     handleDrop(e) {
       e.preventDefault()
-      console.log(this.id, this.tasks)
+      this.$bus.$emit('dropped', {
+        targetList: this.id,
+      })
     },
   },
 }
