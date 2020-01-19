@@ -1,5 +1,5 @@
 <template>
-  <div :class="target ? 'panel target' : 'panel'" :id="`${id}-panel`">
+  <div class="panel" v-bind:class="{ target: target }" :id="`${id}-panel`">
     <div class="title">
       <h2>{{ title }}</h2>
     </div>
