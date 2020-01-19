@@ -18,10 +18,13 @@ export default {
   components: {
     Task,
   },
-  props: ['id', 'tasks'],
+  props: ['id', 'tasks', 'active'],
   methods: {
     handleDragOver(e) {
       e.preventDefault()
+      this.$bus.$emit('drag-over', {
+        targetList: this.id,
+      })
     },
     handleDrop(e) {
       e.preventDefault()

@@ -2,13 +2,18 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <Panel title="To-Do" id="todo" :tasks="tasks.todo" />
+        <Panel title="To-Do" id="todo" :tasks="tasks.todo" :target="targetList == 'todo'" />
       </div>
       <div class="col">
-        <Panel title="Progress" id="progress" :tasks="tasks.progress" />
+        <Panel
+          title="Progress"
+          id="progress"
+          :tasks="tasks.progress"
+          :target="targetList == 'progress'"
+        />
       </div>
       <div class="col">
-        <Panel title="Done" id="done" :tasks="tasks.done" />
+        <Panel title="Done" id="done" :tasks="tasks.done" :target="targetList == 'done'" />
       </div>
     </div>
   </div>
@@ -48,6 +53,7 @@ export default {
       },
       movedTaskID: '',
       sourceList: '',
+      targetList: '',
     }
   },
   methods: {
@@ -56,9 +62,15 @@ export default {
       this.movedTaskID = data.taskID
       this.sourceList = data.sourceList
     },
+    handleDragOver(data) {
+      this.targetList = data.targetList
+    },
     handleDrop(data) {
       // Prevent move on same list
       if (data.targetList == this.sourceList) {
+        this.movedTaskID = ''
+        this.sourceList = ''
+        this.targetList = ''
         return
       }
 
@@ -71,27 +83,18 @@ export default {
       // Remove removed element from sourceList
       const remainingElements = this.tasks[this.sourceList].filter(e => e.id != this.movedTaskID)
       this.tasks[this.sourceList] = remainingElements
+
+      this.movedTaskID = ''
+      this.sourceList = ''
+      this.targetList = ''
     },
   },
   created() {
     this.$bus.$on('drag-start', this.handleDragStart)
+    this.$bus.$on('drag-over', this.handleDragOver)
     this.$bus.$on('dropped', this.handleDrop)
   },
 }
 </script>
 
-<style scoped>
-.panel {
-  background-color: #f4f5f7;
-  padding: 1em;
-  min-height: 500px;
-  display: flex;
-  flex-direction: column;
-}
-
-.panel h2 {
-  font-size: 1.2em;
-  margin-bottom: 1em;
-  text-align: center;
-}
-</style>
+<style scoped></style>
