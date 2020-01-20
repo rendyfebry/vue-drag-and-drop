@@ -78,9 +78,7 @@ export default {
       })
 
       // Remove removed element from sourceList
-      const copy = [...this.tasks[this.movedTask.listId]]
-      copy.splice(this.movedTask.index, 1)
-      this.tasks[this.movedTask.listId] = copy
+      this.tasks[this.movedTask.listId].splice(this.movedTask.index, 1)
 
       this.movedTask = {}
       this.targetList = ''
