@@ -4,6 +4,7 @@
     :id="`task-${id}`"
     draggable="true"
     v-on:dragstart="handleDragStart"
+    v-on:dragend="handleDragEnd"
     v-on:dragover="handleDragOver"
   >
     {{ title }}
@@ -16,12 +17,15 @@ export default {
   props: ['listId', 'id', 'title', 'index'],
   methods: {
     handleDragStart() {
-      this.$bus.$emit('drag-start', {
+      this.$bus.$emit('task-drag-start', {
         id: this.id,
         title: this.title,
         listId: this.listId,
-        index: this.index
+        index: this.index,
       })
+    },
+    handleDragEnd() {
+      this.$bus.$emit('task-drag-end')
     },
     handleDragOver(e) {
       e.preventDefault()

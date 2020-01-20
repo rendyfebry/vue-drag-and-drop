@@ -56,18 +56,20 @@ export default {
     }
   },
   methods: {
-    handleDragStart(data) {
-      // Save task info
+    handleTaskDragStart(data) {
       this.movedTask = data
     },
-    handleDragOver(data) {
+    handleTaskDragEnd() {
+      this.movedTask = {}
+    },
+    handleListDragOver(data) {
       this.targetList = data.targetList
     },
-    handleDrop(data) {
+    handleListDropped(data) {
+      this.targetList = ''
+
       // Prevent move on same list
       if (data.targetList == this.movedTask.listId) {
-        this.movedTask = {}
-        this.targetList = ''
         return
       }
 
@@ -79,15 +81,14 @@ export default {
 
       // Remove removed element from sourceList
       this.tasks[this.movedTask.listId].splice(this.movedTask.index, 1)
-
-      this.movedTask = {}
-      this.targetList = ''
     },
   },
   created() {
-    this.$bus.$on('drag-start', this.handleDragStart)
-    this.$bus.$on('drag-over', this.handleDragOver)
-    this.$bus.$on('dropped', this.handleDrop)
+    this.$bus.$on('task-drag-start', this.handleTaskDragStart)
+    this.$bus.$on('task-drag-end', this.handleTaskDragEnd)
+
+    this.$bus.$on('list-drag-over', this.handleListDragOver)
+    this.$bus.$on('list-dropped', this.handleListDropped)
   },
 }
 </script>

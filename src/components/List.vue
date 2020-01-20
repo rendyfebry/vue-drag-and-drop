@@ -6,7 +6,14 @@
     v-on:dragover="handleDragOver"
     v-on:drop="handleDrop"
   >
-    <Task v-for="(task, index) in tasks" :key="task.id" :listId="id" :id="task.id" :title="task.title" :index="index" />
+    <Task
+      v-for="(task, index) in tasks"
+      :key="task.id"
+      :listId="id"
+      :id="task.id"
+      :title="task.title"
+      :index="index"
+    />
   </div>
 </template>
 
@@ -22,13 +29,13 @@ export default {
   methods: {
     handleDragOver(e) {
       e.preventDefault()
-      this.$bus.$emit('drag-over', {
+      this.$bus.$emit('list-drag-over', {
         targetList: this.id,
       })
     },
     handleDrop(e) {
       e.preventDefault()
-      this.$bus.$emit('dropped', {
+      this.$bus.$emit('list-dropped', {
         targetList: this.id,
       })
     },
