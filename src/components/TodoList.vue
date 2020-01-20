@@ -51,41 +51,38 @@ export default {
         progress: [],
         done: [],
       },
-      movedTaskID: '',
-      sourceList: '',
+      movedTask: {},
       targetList: '',
     }
   },
   methods: {
     handleDragStart(data) {
-      // Save taskID & sourceList
-      this.movedTaskID = data.taskID
-      this.sourceList = data.sourceList
+      // Save task info
+      this.movedTask = data
     },
     handleDragOver(data) {
       this.targetList = data.targetList
     },
     handleDrop(data) {
       // Prevent move on same list
-      if (data.targetList == this.sourceList) {
-        this.movedTaskID = ''
-        this.sourceList = ''
+      if (data.targetList == this.movedTask.listId) {
+        this.movedTask = {}
         this.targetList = ''
         return
       }
 
       // Add moved element to targetList
-      const movedElements = this.tasks[this.sourceList].filter(e => e.id == this.movedTaskID)
-      if (movedElements.length) {
-        this.tasks[data.targetList].push(movedElements[0])
-      }
+      this.tasks[data.targetList].push({
+        title: this.movedTask.title,
+        id: this.movedTask.id,
+      })
 
       // Remove removed element from sourceList
-      const remainingElements = this.tasks[this.sourceList].filter(e => e.id != this.movedTaskID)
-      this.tasks[this.sourceList] = remainingElements
+      const copy = [...this.tasks[this.movedTask.listId]]
+      copy.splice(this.movedTask.index, 1)
+      this.tasks[this.movedTask.listId] = copy
 
-      this.movedTaskID = ''
-      this.sourceList = ''
+      this.movedTask = {}
       this.targetList = ''
     },
   },

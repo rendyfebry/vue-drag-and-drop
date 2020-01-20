@@ -6,7 +6,7 @@
     v-on:dragover="handleDragOver"
     v-on:drop="handleDrop"
   >
-    <Task v-for="task in tasks" :key="task.id" :listId="id" :id="task.id" :title="task.title" />
+    <Task v-for="(task, index) in tasks" :key="task.id" :listId="id" :id="task.id" :title="task.title" :index="index" />
   </div>
 </template>
 
